@@ -26,9 +26,9 @@ mod unix;
 #[cfg(all(unix, not(any(target_vendor = "apple", target_os = "android"))))]
 use unix as provider;
 
-#[cfg(all(target_family = "wasm", feature = "js", not(unix)))]
+#[cfg(all(target_family = "wasm", feature = "js", not(unix), not(target_os = "wasi")))]
 mod wasm;
-#[cfg(all(target_family = "wasm", feature = "js", not(unix)))]
+#[cfg(all(target_family = "wasm", feature = "js", not(unix), not(target_os = "wasi")))]
 use wasm as provider;
 
 #[cfg(windows)]
@@ -36,7 +36,18 @@ mod windows;
 #[cfg(windows)]
 use windows as provider;
 
-#[cfg(not(any(unix, all(target_family = "wasm", feature = "js", not(unix)), windows)))]
+// WaOS: an app is a WASI component, and asks WaOS.
+#[cfg(target_os = "wasi")]
+mod waos;
+#[cfg(target_os = "wasi")]
+use waos as provider;
+
+#[cfg(not(any(
+    unix,
+    all(target_family = "wasm", feature = "js", not(unix)),
+    windows,
+    target_os = "wasi"
+)))]
 mod provider {
     pub fn get() -> impl Iterator<Item = alloc::string::String> {
         core::iter::empty()
