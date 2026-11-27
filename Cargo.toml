@@ -27,7 +27,7 @@ web-sys = { version = "0.3", features = ["Window", "WorkerGlobalScope", "Navigat
 
 # WaOS: the user's languages come from WaOS's own interface.
 [target.'cfg(target_os = "wasi")'.dependencies]
-wasdk = "0.7.1"
+wasdk = "0.8.0"
 
 [features]
 js = ["js-sys", "wasm-bindgen", "web-sys"]

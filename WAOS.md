@@ -9,7 +9,7 @@ This fork adds WaOS to sys-locale 0.3.2: on a WaOS app (a WASI component, `targe
 sys-locale = { git = "https://github.com/waos-dev/sys-locale", branch = "waos" }
 ```
 
-The fork asks for the published `wasdk` (0.7.1). An app that takes `wasdk` from WaOS's repository names it in the same `[patch.crates-io]`, so the fork builds with that one too.
+The fork asks for the published `wasdk` (0.8.0). An app that takes `wasdk` from WaOS's repository names it in the same `[patch.crates-io]`, so the fork builds with that one too.
 
 ## What it answers
 
